@@ -1,0 +1,349 @@
+//tests de Heroe
+
+Mapa mapa = new Mapa(100);
+Faccion faccion = Faccion.EQUIPO_ROJO;
+
+try{
+  Heroe heroe_a_testear = new Heroe("Heroe 2", Faccion.EQUIPO_ROJO);
+
+// Comprueba que un heroe no se ataque a si mismo
+  heroe_a_testear.setMapa(mapa);
+  int miVida = heroe_a_testear.getEnergia();
+  heroe_a_testear.atacar();
+  if(miVida == heroe_a_testear.getEnergia()){
+    System.out.println("CORRECTO");
+  }
+  else{
+    System.out.println("Un heroe no puede atacarse a sí mismo!");
+  }
+}
+catch (Exception exception){
+   System.out.println("No deberia tirar excepcion por nombre invalido");
+}
+
+//expected
+CORRECTO
+
+
+
+
+Mapa mapa = new Mapa(100);
+Faccion faccion = Faccion.EQUIPO_ROJO;
+try{
+Heroe heroe_a_testear = new Heroe("Heroe 2", Faccion.EQUIPO_ROJO);
+
+  // Prueba que si el heroe tiene un villano cerca sea efectivamente atacado
+  heroe_a_testear.setMapa(mapa);
+  Villano villano = new Villano("Villano");
+  villano.setPosicion(new Posicion (3,3));
+  villano.setMapa(mapa);
+  int vida_villano = villano.getEnergia();
+  heroe_a_testear.atacar();
+  if(villano.getEnergia() < vida_villano){
+     System.out.println("CORRECTO");
+  }
+  else{
+    System.out.println("El villano no ha sido atacado!");
+  }
+}
+catch (Exception exception){
+   System.out.println("No deberia tirar excepcion por nombre invalido");
+}
+
+//expected
+CORRECTO
+
+
+
+
+Mapa mapa = new Mapa(100);
+Faccion faccion = Faccion.EQUIPO_ROJO;
+try{
+Heroe heroe_a_testear = new Heroe("Heroe 2", Faccion.EQUIPO_ROJO);
+
+\t//Prueba que si hay un heroe aliado cerca este no sea atacado
+\theroe_a_testear.setMapa(mapa);
+    Heroe heroe_aliado = new Heroe( "Heroe Aliado",  Faccion.EQUIPO_ROJO);
+\theroe_aliado.setMapa(mapa);
+\tInteger vida_aliado = heroe_aliado.getEnergia();
+\theroe_a_testear.atacar();
+\tif(heroe_aliado.getEnergia()==vida_aliado){
+\t\tSystem.out.println("CORRECTO");
+\t}
+\telse{
+\t\tSystem.out.println("El heroe aliado no deberia haber sido atacado!");
+\t}
+}
+catch (Exception exception){
+\tSystem.out.println("No deberia tirar excepcion por nombre invalido");
+}
+
+//expected
+CORRECTO
+
+
+
+Mapa mapa = new Mapa(100);
+Faccion faccion = Faccion.EQUIPO_ROJO;
+try{
+Heroe heroe_a_testear = new Heroe("Heroe 2", Faccion.EQUIPO_ROJO);
+
+    Heroe heroe  = new Heroe("Heroe",  Faccion.EQUIPO_ROJO);
+    int vida = heroe.getEnergia();
+    heroe.recibirGolpe(20);
+    System.out.println("Vida del heroe: " + heroe.getEnergia());
+}
+catch (Exception exception){
+        System.out.println("No deberia tirar excepcion por nombre invalido");
+}
+
+Vida del heroe: 80
+
+
+
+
+Mapa mapa = new Mapa(100);
+Faccion faccion = Faccion.EQUIPO_ROJO;
+try{
+Heroe heroe_a_testear = new Heroe("Heroe 2", Faccion.EQUIPO_ROJO);
+
+    Heroe heroe = new Heroe( "Heroe", Faccion.EQUIPO_ROJO);
+\theroe.setMapa(mapa);
+    int vida = heroe.getEnergia();
+    int ataque = heroe.getAtaque();
+    System.out.println("Vida del heroe: " + vida);
+    System.out.println("Ataque del heroe: " + ataque);
+    heroe.subirNivel();
+    System.out.println("Vida del heroe: " + heroe.getEnergia());
+    System.out.println("Ataque del heroe: " + heroe.getAtaque());
+}
+catch (Exception exception){
+    System.out.println("No deberia tirar excepcion por nombre invalido");
+}
+
+Vida del heroe: 100
+Ataque del heroe: 20
+Vida del heroe: 110
+Ataque del heroe: 25
+
+****************************************************************************************
+//tests de Heroe // EN TODOS LOS TESTS EL EXPECTED ES CORRECTO
+// Prueba agregarPersonaje - Argumento tipo Pesonaje - Lanza
+// excepcion
+Mapa mapa = new Mapa(100);
+\t\tHeroe h1 = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+\t\t
+\t\ttry{
+\t\t   h1.setMapa(mapa);
+\t\t
+\t\t   Heroe h2 = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+\t\t   mapa.agregarPersonaje(h2);
+\t\t   System.out.println("No lanza excepcion");
+\t\t}
+\t\tcatch (NombreDuplicadoException exception){
+   System.out.println("CORRECTO");}
+
+
+
+	
+// Prueba agregarPersonaje - Argumento tipo Pesonaje - No debe
+// lanzar excepcion
+Mapa mapa = new Mapa(100);
+\t\tHeroe h = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+\t\t
+\t\ttry{
+\t\t\th.setMapa(mapa);
+\t\t\t
+\t\t   System.out.println("CORRECTO");
+\t\t}
+\t\tcatch (NombreDuplicadoException exception){
+   System.out.println("No debe lanzar excepcion");}
+
+
+	
+// Prueba eliminarPersonaje - Argumento tipo Personaje
+Mapa mapa = new Mapa(100);
+\t\tHeroe h = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+\t\ttry{
+\t\t   h.setMapa(mapa);
+\t\t   mapa.eliminarPersonaje(h);
+\t\t   if (mapa.getPersonajes().size()!=0) throw new IllegalStateException();
+\t\t   System.out.println("CORRECTO");
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("eliminarPersonaje no remueve correctamente al pesonaje h");
+}
+
+	
+// Prueba eliminarPersonaje - Argumento tipo String
+Mapa mapa = new Mapa(100);
+\t\tHeroe h = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+    \ttry{
+    \t\th.setMapa(mapa);
+\t\t   mapa.eliminarPersonaje("Heroe2");
+\t\t   if (mapa.getPersonajes().size()!=0) throw new IllegalStateException();
+\t\t   System.out.println("CORRECTO");
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("eliminarPersonaje no remueve correctamente al pesonaje h");
+}
+
+
+	
+// Prueba eliminarPersonaje - Argumento tipo String
+Mapa mapa = new Mapa(100);
+\t\tHeroe h = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+    \ttry{
+    \t\th.setMapa(mapa);
+  \t\t    mapa.eliminarPersonaje("Heroe");
+\t\t   if (mapa.getPersonajes().size()!=1) throw new IllegalStateException();
+\t\t   System.out.println("CORRECTO");
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("eliminarPersonaje remueve personaje incorrecto");
+}
+
+
+	
+CORRECTO
+CORRECTO
+// Prueba realizarMovimiento - Caso argumentos ok
+Mapa mapa = new Mapa(100);
+\t\tHeroe h = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+    \ttry{
+    \t\th.setPosicion(new Posicion(50,50));
+    \t\th.setMapa(mapa);
+     \t    mapa.moverPersonajeEnDireccion(h, Direccion.ARRIBA);
+
+\t\t   if (h.getPosicion().getX()==50 && h.getPosicion().getY()==51){
+\t\t      System.out.println("CORRECTO");
+\t\t   }
+\t\t   else throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("realizarMovimiento no desplaza correctamente al personaje");
+}
+
+
+	
+// Prueba realizarMovimiento - Caso movimiento fuera limites
+Mapa mapa = new Mapa(50);
+\t\tHeroe h = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+    \ttry{
+\t\t   h.setPosicion(new Posicion(50,50));
+\t\t   h.setMapa(mapa);
+\t       boolean mov = mapa.moverPersonajeEnDireccion(h, Direccion.ARRIBA);
+
+\t\t   if (!mov && h.getPosicion().getX()==50 && h.getPosicion().getY()==50){
+\t\t      System.out.println("CORRECTO");
+\t\t   }
+\t\t   else throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("realizarMovimiento desplaza al personaje fuera de los limites del mapa");
+}
+
+
+// Prueba realizarMovimiento - Caso movimiento en posicion
+// ocupada
+Mapa mapa = new Mapa(100);
+\t\tHeroe h1 = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+\t\tHeroe h2 = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+\t\ttry{
+\t\t   h1.setPosicion(new Posicion(50,50));
+\t\t   h2.setPosicion(new Posicion(49,50));
+\t\t   h1.setMapa(mapa);
+\t\t   h2.setMapa(mapa);
+\t\t
+\t\t   boolean mov = mapa.moverPersonajeEnDireccion(h2, Direccion.DERECHA);
+
+\t\t   if (!mov && h2.getPosicion().getX()==49 && h2.getPosicion().getY()==50){
+\t\t      System.out.println("CORRECTO");
+\t\t   }
+\t\t   else throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("realizarMovimiento desplaza al personaje a una posicion ocupada por otro personaje");
+}
+
+// Prueba obtenerPersonajesCercanos - Caso 2 cercanos
+Mapa mapa = new Mapa(100);
+\t\tHeroe h1 = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+\t\tHeroe h2 = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+\t\tHeroe h3 = new Heroe("Heroe3", Faccion.EQUIPO_AZUL);
+\t\ttry{
+\t\t
+\t\t   h1.setPosicion(new Posicion(50,50));
+\t\t   h2.setPosicion(new Posicion(49,50));
+\t\t   h3.setPosicion(new Posicion(48,50));
+\t\t   h1.setMapa(mapa);
+\t\t   h2.setMapa(mapa);
+\t\t   h3.setMapa(mapa);
+\t\t
+\t\t   List<Personaje> personas = mapa.obtenerPersonajesCercanos(h3);
+\t\t  if (personas.size()==2 && personas.contains(h1) && personas.contains(h2)){
+\t\t    System.out.println ("CORRECTO");
+\t\t  }
+\t\t  else throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("obtenerPersonajesCercanos no detecta todos los personajes cercanos");
+}
+
+// Prueba obtenerPersonajesCercanos - Caso 0 cercanos
+Mapa mapa = new Mapa(100);
+\t\tHeroe h1 = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+\t\tHeroe h2 = new Heroe("Heroe2", Faccion.EQUIPO_ROJO);
+\t\tHeroe h3 = new Heroe("Heroe3", Faccion.EQUIPO_AZUL);
+\t\ttry{
+\t\t   h1.setPosicion(new Posicion(50,10));
+\t\t   h2.setPosicion(new Posicion(70,20));
+\t\t   h3.setPosicion(new Posicion(30,70));
+\t\t   h1.setMapa(mapa);
+\t\t   h2.setMapa(mapa);
+\t\t   h3.setMapa(mapa);
+\t\t   List<Personaje> personas = mapa.obtenerPersonajesCercanos(h3);
+\t\t  if (personas.size()==0 && !personas.contains(h1) && !personas.contains(h2)){
+\t\t    System.out.println ("CORRECTO");
+\t\t  }
+\t\t  else throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("obtenerPersonajesCercanos detecta incorrectamente personajes cercanos");
+}
+
+	
+// Prueba obtenerFacciones - Caso 1 azul , 1 rojo
+Mapa mapa = new Mapa(100);
+\t\tHeroe h1 = new Heroe("Heroe1", Faccion.EQUIPO_ROJO);
+\t\tHeroe h2 = new Heroe("Heroe2", Faccion.EQUIPO_AZUL);
+\t\ttry{
+\t\t\th1.setPosicion(new Posicion(50,10));
+\t\t\th2.setPosicion(new Posicion(70,20));\t
+\t\t\th1.setMapa(mapa);
+\t\t\th2.setMapa(mapa);
+\t\t\t
+\t\t\tif (mapa.obtenerNroHeroesDeFaccion(Faccion.EQUIPO_AZUL) == 1 && mapa.obtenerNroHeroesDeFaccion(Faccion.EQUIPO_ROJO) == 1){
+\t\t\t\tSystem.out.println ("CORRECTO");
+\t\t  }
+\t\t  else
+\t\t\t  throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("obtenerFacciones no distingue facciones correctamente");
+}
+
+	
+// Prueba obtenerFacciones - Caso 0 azul , 0 rojo
+\tMapa mapa = new Mapa(100);
+\t\ttry{
+\t\t
+\t\t  if (mapa.obtenerNroHeroesDeFaccion(Faccion.EQUIPO_AZUL) ==0 && mapa.obtenerNroHeroesDeFaccion(Faccion.EQUIPO_ROJO) == 0){
+\t\t\t\t\t    System.out.println ("CORRECTO");
+\t\t  }
+\t\t  else
+\t\t\t  throw new IllegalStateException();
+\t\t}
+\t\tcatch (Exception e){
+   System.out.println("obtenerFacciones no distingue facciones correctamente");
+}
