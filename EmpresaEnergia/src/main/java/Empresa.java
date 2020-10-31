@@ -61,7 +61,16 @@ public class Empresa {
 	 */
 	public Cliente nuevoCliente (String nombre){
 		//TODO Implementar metodo
-		return null;
+		Cliente nuevoCliente = new Cliente(nombre);
+
+		//Veo que no este el nombre del cliente en la lista antes de insertarlo
+		for(Cliente cliente : clientes){
+			if(cliente.getNombre().equals(nuevoCliente.getNombre())){
+				throw new IllegalStateException();
+			}
+		}
+		clientes.add(nuevoCliente);
+		return nuevoCliente;
 	}
 
 	/**
@@ -78,7 +87,14 @@ public class Empresa {
 	 */
 	public Cliente getCliente(String nombre) {
 		//TODO Implementar metodo
-		throw new IllegalStateException();
+
+		//Veo que no este el nombre del cliente en la lista antes de insertarlo
+		for(Cliente cliente : clientes){
+			if(cliente.getNombre().equals(nombre.toLowerCase().trim())){
+				return cliente;
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -91,7 +107,14 @@ public class Empresa {
 	 */
 	public boolean bajaCliente(String nombreCliente){
 		//TODO Implementar metodo
-		throw new IllegalStateException();
+
+		//Veo que no este el nombre del cliente en la lista antes de insertarlo
+		for(Cliente cliente : clientes){
+			if(cliente.getNombre().equals(nombreCliente.toLowerCase().trim())){
+				return clientes.remove(cliente);
+			}
+		}
+		return false;
 	}
 
 	
@@ -109,10 +132,13 @@ public class Empresa {
 
 	public Medidor nuevoMedidor(TipoMedidor tipo, CoordenadaGPS pos){
 		Medidor m;
-		if (TipoMedidor.MONOFASICO.equals(tipo))
+		if (TipoMedidor.MONOFASICO.equals(tipo)){
 			m = new MedidorMonofasico(pos);
-		else
+		}else if(TipoMedidor.TRIFASICO.equals(tipo)){
+			m = new MedidorTrifasico(pos);
+		}else{
 			throw new IllegalArgumentException();
+		}
 		medidores.add(m);
 		return m;
 	}
@@ -130,8 +156,7 @@ public class Empresa {
 	public boolean bajaMedidor(int serialNumber){
 		for (Medidor m: medidores){
 			if (serialNumber == m.getSerialNumber()) {
-				medidores.remove(m);
-				return true;
+				return medidores.remove(m);
 			}
 		}
 		return false;		
@@ -155,6 +180,13 @@ public class Empresa {
 	 */
 	public void asociarMedidorACliente(Cliente c, Medidor m){
 		//TODO Implementar metodo
+
+		//Veo si cliente ya tiene un medidor asociado
+		if(c.getMedidorAsociado() != null){
+			throw new IllegalStateException();
+		}
+		c.asociarMedidor(m);
+		mapaClientes.put(c.getNombre(), m.toString());
 	}
 	
 	/**
@@ -166,6 +198,9 @@ public class Empresa {
 	 */
 	public void disociarMedidorDeCliente (Cliente c){
 		//TODO Implementar metodo
+
+		c.removerMedidor();
+		mapaClientes.remove(c.getNombre());
 	}
 	
 }
