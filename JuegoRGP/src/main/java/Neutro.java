@@ -1,16 +1,19 @@
- 
-public class Neutro extends Personaje{
+
+public class Neutro extends Personaje {
 
     private static final int ATAQUE = 0;
     private static final int ENERGIA = 200;
 
     /**
      * Crea un nuevo personaje Neutro
-     * @param mapa Mapa al que esta asociado
+     *
+     * @param mapa   Mapa al que esta asociado
      * @param nombre Nombre del personaje
      * @throws NombreDuplicadoException Si el nombre ya existe
      */
-    Neutro(String nombre) {
+
+    public Neutro(String nombre) {
+
         super(ATAQUE, ENERGIA, nombre);
     }
 
@@ -25,20 +28,20 @@ public class Neutro extends Personaje{
 
     /**
      * Intenta mover aleatoriamente, despues de 3 intentos
-     * desiste de moverse 
+     * desiste de moverse
      */
     @Override
     public void mover() {
         int direccion = (int) Math.floor(Math.random() * 4.);
-        Direccion []direcciones = Direccion.values();
+        Direccion[] direcciones = Direccion.values();
         int intentos = 0;
-        while(!mapa.moverPersonajeEnDireccion(this, direcciones[direccion])){
+        while (!mapa.moverPersonajeEnDireccion(this, direcciones[direccion])) {
             intentos += 1;
-            if(intentos == 3){
+            if (intentos == 3) {
                 return;
             }
             direccion = (int) Math.floor(Math.random() * 4.);
         }
     }
-    
+
 }

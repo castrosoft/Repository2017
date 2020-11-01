@@ -13,6 +13,7 @@ public class NombreDuplicadoException extends Exception{
     }
     
     public String toString(){
+
         return "Ya existe un personaje con el nombre: " + _nombre;
     }
 }
